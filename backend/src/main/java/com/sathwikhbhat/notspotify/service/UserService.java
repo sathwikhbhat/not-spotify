@@ -29,6 +29,7 @@ public class UserService {
         userRepository.save(newUser);
 
         return UserResponse.builder()
+                .id(newUser.getId())
                 .email(newUser.getEmail())
                 .role(UserResponse.Role.USER)
                 .build();

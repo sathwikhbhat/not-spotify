@@ -5,6 +5,7 @@ import com.sathwikhbhat.notspotify.document.UserResponse;
 import com.sathwikhbhat.notspotify.dto.RegisterRequest;
 import com.sathwikhbhat.notspotify.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public UserResponse registerUser(RegisterRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
@@ -20,7 +22,7 @@ public class UserService {
 
         User newUser = User.builder()
                 .email(request.getEmail())
-                .password(request.getPassword())
+                .password(passwordEncoder.encode(request.getPassword()))
                 .role(User.Role.USER)
                 .build();
 

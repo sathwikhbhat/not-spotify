@@ -1,6 +1,39 @@
 import { assets } from "../assets/assets";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 const Login = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setError("");
+
+        if (!email || !password || !confirmPassword) {
+            setError("Please fill in all fields");
+            toast.error("Please fill in all fields");
+            setLoading(false);
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            setError("Passwords do not match");
+            toast.error("Passwords do not match");
+            setLoading(false);
+            return;
+        }
+
+        setTimeout(() => {
+            console.log("User registered:", { email, password });
+            setLoading(false);
+        }, 1000);
+    }
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-green-900 via-black to-green-900 flex items-center justify-center p-4">
             <div className="max-w-md w-full space-y-8">
@@ -16,7 +49,7 @@ const Login = () => {
                     </p>
                 </div>
                 <div className="bg-gray-900/80 backdrop-blur-lg rounded-2xl p-8 shadow-2xl border border-gray-700">
-                    <form className="space-y-6">
+                    <form className="space-y-6" onSubmit={handleSubmit}>
                         {/* Email */}
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium text-gray-200 mb-2">
@@ -31,6 +64,8 @@ const Login = () => {
                                             focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent 
                                             transition-all duration-200"
                                 placeholder="Enter your email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                         </div>
                         {/* Password */}
@@ -47,7 +82,9 @@ const Login = () => {
                                             focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent 
                                             transition-all duration-200"
                                 placeholder="Enter your password"
-                            />
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                             />
                         </div>
                         {/* Submit Button */}
                         <button className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-green-600 

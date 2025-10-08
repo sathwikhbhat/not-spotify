@@ -1,6 +1,14 @@
+import Login from "./components/login.jsx";
+import Register from "./components/register.jsx";
+import { Toaster } from "react-hot-toast";
+
 const App = () => {
   return (
-    <div className="text-3xl font-bold underline">App Component</div>
+    <div>
+      <Toaster />
+      <Login />
+      <Register />
+    </div>
   )
 }
 

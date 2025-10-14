@@ -3,7 +3,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/AuthContext";
 
-const Login = () => {
+const Login = ({ onSwitch }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
@@ -98,15 +98,21 @@ const Login = () => {
                         {/* Submit Button */}
                         <button className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-green-600 
                                             hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 
-                                            disabled:opacity-50 transform hover:scale-105 cursor-pointer transition-all duration-200">
-                            Login
+                                            disabled:opacity-50 transform hover:scale-105 cursor-pointer transition-all duration-200"
+                            disabled={loading}>
+                            {loading ?
+                                <div className="flex items-center">
+                                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                                    Logging in...
+                                </div> :
+                                'Login'}
                         </button>
                     </form>
                     {/* Switch to Register */}
                     <div className="mt-6 text-center">
                         <p className="text-sm text-gray-400">
                             Don't have an account yet? {' '}
-                            <button className="text-green-400 hover:text-green-300 font-medium transition-colors cursor-pointer">
+                            <button className="text-green-400 hover:text-green-300 font-medium transition-colors cursor-pointer" onClick={onSwitch}>
                                 Register here
                             </button>
                         </p>

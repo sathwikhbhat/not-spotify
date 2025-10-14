@@ -91,7 +91,20 @@ export const AuthProvider = ({ children }) => {
         return !!token && !!user;
     };
 
-    const contextValue = { register, login, isAuthenticated, loading };
+    const logout = () => {
+        setUser(null);
+        setToken(null);
+        localStorage.removeItem("userToken");
+        localStorage.removeItem("userData");
+    }
+
+    const contextValue = {
+        register,
+        login,
+        isAuthenticated,
+        loading,
+        logout
+    };
 
     return (
         <AuthContext.Provider value={contextValue}>

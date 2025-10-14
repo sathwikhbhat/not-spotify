@@ -1,6 +1,7 @@
 import toast from "react-hot-toast";
 import { assets } from "../assets/assets";
 import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
 
 const Register = () => {
     const [email, setEmail] = useState("");
@@ -8,6 +9,7 @@ const Register = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const { register } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -28,10 +30,20 @@ const Register = () => {
             return;
         }
 
-        setTimeout(() => {
-            console.log("User registered:", { email, password });
+        try {
+            const response = await register(email, password);
+            if (response.success) {
+                toast.success(response.message);
+            } else {
+                setError(response.message);
+                toast.error(response.message);
+            }
+        } catch (error) {
+            toast.error('An unexpected error ocurred. Please try again later.')
+            setError(error.message);
+        } finally {
             setLoading(false);
-        }, 1000);
+        }
     }
 
     return (

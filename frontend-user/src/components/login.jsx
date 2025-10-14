@@ -1,38 +1,47 @@
 import { assets } from "../assets/assets";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const { login } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
         setError("");
 
-        if (!email || !password || !confirmPassword) {
+        if (!email || !password) {
             setError("Please fill in all fields");
             toast.error("Please fill in all fields");
             setLoading(false);
             return;
         }
 
-        if (password !== confirmPassword) {
-            setError("Passwords do not match");
-            toast.error("Passwords do not match");
+        try {
+            const response = await login(email, password);
+            if (response.success) {
+                toast.success(response.message);
+            } else {
+                setError(response.message);
+                toast.error(response.message);
+            }
+        } catch (error) {
+            setError(error.message);
+            toast.error(error.message);
+        } finally {
             setLoading(false);
-            return;
         }
 
         setTimeout(() => {
             console.log("User registered:", { email, password });
             setLoading(false);
         }, 1000);
-    }
+    };
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-green-900 via-black to-green-900 flex items-center justify-center p-4">
@@ -76,7 +85,7 @@ const Login = () => {
                             <input type="password"
                                 name="password"
                                 id="password"
-                                autoComplete="new-password"
+                                autoComplete="current-password"
                                 required
                                 className="block w-full px-4 py-3 border border-gray-600 rounded-lg bg-gray-800/50 text-white placeholder-gray-400 
                                             focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent 
@@ -84,7 +93,7 @@ const Login = () => {
                                 placeholder="Enter your password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                             />
+                            />
                         </div>
                         {/* Submit Button */}
                         <button className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-green-600 

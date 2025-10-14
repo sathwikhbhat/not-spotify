@@ -1,5 +1,5 @@
-import Login from "./components/login.jsx";
-import Register from "./components/register.jsx";
+import Login from "./components/Login.jsx";
+import Register from "./components/Register.jsx";
 import { Toaster } from "react-hot-toast";
 
 const App = () => {

@@ -59,6 +59,9 @@ const Login = ({ onSwitch }) => {
                 </div>
                 <div className="bg-gray-900/80 backdrop-blur-lg rounded-2xl p-8 shadow-2xl border border-gray-700">
                     <form className="space-y-6" onSubmit={handleSubmit}>
+                        {error && <div className="bg-red-500/20 border border-red-500 rounded-lg p-3">
+                            {error}
+                        </div>}
                         {/* Email */}
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium text-gray-200 mb-2">

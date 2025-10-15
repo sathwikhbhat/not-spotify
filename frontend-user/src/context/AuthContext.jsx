@@ -102,6 +102,7 @@ export const AuthProvider = ({ children }) => {
         register,
         login,
         isAuthenticated,
+        user,
         loading,
         logout
     };

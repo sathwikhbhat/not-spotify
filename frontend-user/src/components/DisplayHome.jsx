@@ -15,9 +15,9 @@ const DisplayHome = () => {
                         <AlbumItem
                             key={index}
                             name={item.name}
-                            desc={item.description}
+                            description={item.description}
                             id={item._id}
-                            image={item.imageUrl}
+                            imageUrl={item.imageUrl}
                         />
                     ))}
                 </div>

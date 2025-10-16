@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             return {
                 success: false,
-                message: error.response.data || 'Registration failed'
+                message: (error.response && (error.response.data?.message || error.response.data)) || error.message || 'Registration failed'
             };
         }
     };
@@ -82,7 +82,7 @@ export const AuthProvider = ({ children }) => {
             setLoading(false);
             return {
                 success: false,
-                message: error.response.data || 'Login failed. Network error. Please try again later.'
+                message: (error.response && (error.response.data?.message || error.response.data)) || error.message || 'Login failed. Network error. Please try again later.'
             };
         }
     };

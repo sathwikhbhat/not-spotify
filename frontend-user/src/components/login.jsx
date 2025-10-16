@@ -36,11 +36,6 @@ const Login = ({ onSwitch }) => {
         } finally {
             setLoading(false);
         }
-
-        setTimeout(() => {
-            console.log("User registered:", { email, password });
-            setLoading(false);
-        }, 1000);
     };
 
     return (

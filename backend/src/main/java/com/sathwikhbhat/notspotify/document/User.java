@@ -21,6 +21,7 @@ public class User {
     @Indexed(unique = true)
     private String email;
     private String password;
+    @Builder.Default
     private Role role = Role.USER;
 
     public enum Role {

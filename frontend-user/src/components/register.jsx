@@ -40,7 +40,7 @@ const Register = ({ onSwitch }) => {
                 toast.error(response.message);
             }
         } catch (error) {
-            toast.error('An unexpected error ocurred. Please try again later.')
+            toast.error('An unexpected error occurred. Please try again later.')
             setError(error.message);
         } finally {
             setLoading(false);

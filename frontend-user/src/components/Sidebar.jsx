@@ -1,13 +1,19 @@
 import { ArrowRight, Home, Library, Plus, Search, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useSearch } from "../context/SearchContext";
 
 const Sidebar = () => {
     const [showSearchInput, setShowSearchInput] = useState(false);
     const navigate = useNavigate();
+    const {searchQuery, setSearchQuery, setIsSearchActive} = useSearch();
 
     const handleSearchClick = () => {
         setShowSearchInput(!showSearchInput);
+        if (showSearchInput) {
+            setSearchQuery('');
+            setIsSearchActive(false);
+        }
         navigate("/search");
     }
 
@@ -30,6 +36,11 @@ const Sidebar = () => {
                         <div className="flex items-center gap-2 pl-4">
                             <Search className="w-5 h-5 text-gray-400" />
                             <input
+                                value={searchQuery}
+                                onChange={(e) => {
+                                    setSearchQuery(e.target.value);
+                                    setIsSearchActive(true);
+                                }}
                                 type="text"
                                 placeholder="What do you want to listen to?"
                                 className="flex-1 bg-[#2a2a2a] text-white placeholder-gray-400 px-3 py-2 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-green-400"

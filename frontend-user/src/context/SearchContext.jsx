@@ -17,7 +17,9 @@ export const SearchProvider = ({ children }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState({ songs: [], albums: [] });
     const [isSearchActive, setIsSearchActive] = useState(false);
-    const { songsData, albumsData } = useContext(PlayerContext);
+    const playerContext = useContext(PlayerContext) || {};
+    const songsData = Array.isArray(playerContext.songsData) ? playerContext.songsData : [];
+    const albumsData = Array.isArray(playerContext.albumsData) ? playerContext.albumsData : [];
 
     useEffect(() => {
         if (searchQuery.trim() === '') {
@@ -25,15 +27,27 @@ export const SearchProvider = ({ children }) => {
             return;
         }
 
-        const query = searchQuery.toLowerCase();
+        const query = String(searchQuery).toLowerCase();
 
-        const filteredSongs = songsData.filter(song =>
-            song.name.toLowerCase().includes(query) || song.desc.toLowerCase().includes(query)
-        );
+        const toLower = (val) => (typeof val === 'string' ? val.toLowerCase() : '');
 
-        const filteredAlbums = albumsData.filter(album =>
-            album.name.toLowerCase().includes(query) || album.desc.toLowerCase().includes(query)
-        )
+        const filteredSongs = songsData
+            .filter(Boolean)
+            .filter(song => {
+                const name = toLower(song?.name);
+                const desc = toLower(song?.desc);
+                const description = toLower(song?.description);
+                return name.includes(query) || desc.includes(query) || description.includes(query);
+            });
+
+        const filteredAlbums = albumsData
+            .filter(Boolean)
+            .filter(album => {
+                const name = toLower(album?.name);
+                const desc = toLower(album?.desc);
+                const description = toLower(album?.description);
+                return name.includes(query) || desc.includes(query) || description.includes(query);
+            });
 
         setSearchResults({
             songs: filteredSongs,

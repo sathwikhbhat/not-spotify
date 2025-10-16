@@ -35,34 +35,47 @@ export const PlayerContextProvider = ({ children }) => {
         setPlayStatus(false);
     }
 
-    const playWithId = async (id) => {
-        songsData.map(item => {
-            if (id === item._id) {
-                setTrack(item);
-            }
-        });
-        await audioRef.current.play();
+    const playWithId = (id) => {
+        const song = songsData.find(item => item._id === id);
+        if (!song) return;
+        setTrack(song);
         setPlayStatus(true);
+        setTimeout(() => {
+            if (audioRef.current) {
+                audioRef.current.load();
+                audioRef.current.play().catch(() => { });
+            }
+        }, 0);
     }
 
-    const previous = async () => {
-        songsData.map(async (item, index) => {
-            if (track._id === item._id && index > 0) {
-                await setTrack(songsData[index - 1]);
-                await audioRef.current.play();
-                setPlayStatus(true);
-            }
-        })
+    const previous = () => {
+        const idx = songsData.findIndex(item => item._id === track?._id);
+        if (idx > 0) {
+            const prevTrack = songsData[idx - 1];
+            setTrack(prevTrack);
+            setPlayStatus(true);
+            setTimeout(() => {
+                if (audioRef.current) {
+                    audioRef.current.load();
+                    audioRef.current.play().catch(() => { });
+                }
+            }, 0);
+        }
     }
 
-    const next = async () => {
-        songsData.map(async (item, index) => {
-            if (track._id === item._id && index < songsData.length - 1) {
-                await setTrack(songsData[index + 1]);
-                await audioRef.current.play();
-                setPlayStatus(true);
-            }
-        })
+    const next = () => {
+        const idx = songsData.findIndex(item => item._id === track?._id);
+        if (idx > -1 && idx < songsData.length - 1) {
+            const nextTrack = songsData[idx + 1];
+            setTrack(nextTrack);
+            setPlayStatus(true);
+            setTimeout(() => {
+                if (audioRef.current) {
+                    audioRef.current.load();
+                    audioRef.current.play().catch(() => { });
+                }
+            }, 0);
+        }
     }
 
     const seekSong = async (e) => {
@@ -148,6 +161,14 @@ export const PlayerContextProvider = ({ children }) => {
             audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
         };
     }, [track]);
+
+    useEffect(() => {
+        if (!audioRef.current || !track) return;
+        audioRef.current.load();
+        if (playStatus) {
+            audioRef.current.play().catch(() => { });
+        }
+    }, [track, playStatus]);
 
     return (
         <PlayerContext.Provider value={contextValue}>

@@ -1,6 +1,6 @@
-const SongItem = ({ name, image, desc, id, nameHtml, descHtml }) => {
+const SongItem = ({ name, image, desc, id, nameHtml, descHtml, onClick }) => {
     return (
-        <div className="min-w-[180px] p-2 px-3 rounded cursor-pointer hover:bg-[#ffffff26]">
+        <div className="min-w-[180px] p-2 px-3 rounded cursor-pointer hover:bg-[#ffffff26]" onClick={onClick}>
             <img src={image} alt="album image" className="rounded" />
             {nameHtml ? (
                 <p className="font-bold mt-2 mb-1" dangerouslySetInnerHTML={{ __html: nameHtml }} />

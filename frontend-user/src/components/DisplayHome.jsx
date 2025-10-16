@@ -4,7 +4,7 @@ import AlbumItem from "./AlbumItem.jsx";
 import SongItem from "./SongItem.jsx";
 
 const DisplayHome = () => {
-    const { songsData, albumsData } = useContext(PlayerContext);
+    const { songsData, albumsData, playWithId } = useContext(PlayerContext);
     return (
         <>
             <div className="mb-4">
@@ -33,6 +33,7 @@ const DisplayHome = () => {
                             desc={item.description}
                             id={item._id}
                             image={item.imageUrl}
+                            onClick={() => playWithId(item._id)}
                         />
                     ))}
                 </div>

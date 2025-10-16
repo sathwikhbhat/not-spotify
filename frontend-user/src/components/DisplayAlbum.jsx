@@ -4,7 +4,7 @@ import { assets } from "../assets/assets.js";
 import { Clock } from "lucide-react";
 
 const DisplayAlbum = ({ album }) => {
-    const { albumsData, songsData } = useContext(PlayerContext);
+    const { albumsData, songsData, playWithId } = useContext(PlayerContext);
 
     return albumsData ? (
         <>
@@ -36,7 +36,8 @@ const DisplayAlbum = ({ album }) => {
                 .map((item, index) => (
                     <div
                         className="grid grid-cols-3 sm:grid-cols-4 gap-2 p-2 items-center text-[#a7a7a7] hover:bg-[#ffffff2b] cursor-pointer"
-                        key={index}>
+                        key={index}
+                        onClick={() => playWithId(item._id)}>
                         <p className="text-white">
                             <b className="mr-4 text-[#a7a7a7]">{index + 1}</b>
                             <img className="inline w-10 mr-5" src={item.imageUrl} alt="" />

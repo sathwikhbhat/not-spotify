@@ -1,10 +1,10 @@
-import {useContext} from "react";
-import {PlayerContext} from "../context/PlayerContext.jsx";
+import { useContext } from "react";
+import { PlayerContext } from "../context/PlayerContext.jsx";
 import AlbumItem from "./AlbumItem.jsx";
 import SongItem from "./SongItem.jsx";
 
 const DisplayHome = () => {
-    const {songsData, albumsData} = useContext(PlayerContext);
+    const { songsData, albumsData } = useContext(PlayerContext);
     return (
         <>
             <div className="mb-4">

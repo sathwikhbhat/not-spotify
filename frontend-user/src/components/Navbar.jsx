@@ -1,7 +1,9 @@
 import { ChevronLeft, ChevronRight, LogOut, User } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import {useNavigate} from "react-router-dom";
 
 const Navbar = () => {
+    const navigate = useNavigate();
     const { user, logout } = useAuth();
     const handleLogout = () => {
         logout();
@@ -10,10 +12,12 @@ const Navbar = () => {
         <>
             <div className="w-full flex justify-between items-center font-semibold">
                 <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-black p-2 rounded-2xl cursor-pointer hover:bg-gray-800 transition-colors flex items-center justify-ce">
+                    <div className="w-8 h-8 bg-black p-2 rounded-2xl cursor-pointer hover:bg-gray-800 transition-colors flex items-center justify-center"
+                        onClick={() => navigate(-1)}>
                         <ChevronLeft className="w-4 h-4 text-white" />
                     </div>
-                    <div className="w-8 h-8 bg-black p-2 rounded-2xl cursor-pointer hover:bg-gray-800 transition-colors flex items-center justify-ce">
+                    <div className="w-8 h-8 bg-black p-2 rounded-2xl cursor-pointer hover:bg-gray-800 transition-colors flex items-center justify-center"
+                        onClick={() => navigate(1)}>
                         <ChevronRight className="w-4 h-4 text-white" />
                     </div>
                 </div>

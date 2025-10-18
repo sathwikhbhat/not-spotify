@@ -23,7 +23,7 @@ const ListSong = () => {
   const removeSong = async (id) => {
     try {
       const response = await songsAPI.remove(id);
-      if (response.status === 204) {
+      if (response.status >= 200 && response.status < 300) {
         toast.success("Song deleted");
         await fetchSongs();
       }
@@ -79,12 +79,16 @@ const ListSong = () => {
                   <p className="text-gray-400 text-sm">Add some songs to get started</p>
                 </div>
               ) : (
-                data.map((song, index) => (
-                  <div key={index} className="grid grid-cols-12 gap-4 items-center px-6 py-4 hover:bg-gray-50 transition-colors duration-200">
+                data.map((song) => (
+                  <div key={song._id} className="grid grid-cols-12 gap-4 items-center px-6 py-4 hover:bg-gray-50 transition-colors duration-200">
                     {/*Song image*/}
                     <div className="col-span-2">
-                      <div className="w-12 h-12 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 overflow-hidden">
-                        <img src={song.image} alt={song.name} className="w-full h-full object-cover" />
+                      <div className="w-12 h-12 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 overflow-hidden bg-gray-100 flex items-center justify-center">
+                        {song.imageUrl ? (
+                          <img src={song.imageUrl} alt={song.name} className="w-full h-full object-cover" />
+                        ) : (
+                          <Image className="w-6 h-6 text-gray-400" />
+                        )}
                       </div>
                     </div>
                     {/*song name*/}
@@ -109,8 +113,8 @@ const ListSong = () => {
                     <div className="col-span-2 flex justify-center">
                       <button
                         onClick={() => removeSong(song._id)}
-                        title="Delete Album"
-                        className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700 transition-colors duration-200 group">
+                        title="Delete Song"
+                        className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700 transition-colors duration-200 group cursor-pointer">
                         <Trash2 className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" />
                       </button>
                     </div>

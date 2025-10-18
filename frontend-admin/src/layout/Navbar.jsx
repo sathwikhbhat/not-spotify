@@ -48,7 +48,7 @@ const Navbar = ({ activeMenu }) => {
         <button
           onClick={handleLogout}
           title="Logout"
-          className="flex items-center gap-2 bg-red-50 hover:bg-red-100 text-red-600 px-3 py-2 rounded-lg transition-colors duration-200">
+          className="flex items-center gap-2 bg-red-50 hover:bg-red-100 text-red-600 px-3 py-2 rounded-lg transition-colors duration-200 cursor-pointer">
           <LogOut className="w-4 h-4" />
           <span className="hidden sm:inline text-sm font-medium">
             Logout

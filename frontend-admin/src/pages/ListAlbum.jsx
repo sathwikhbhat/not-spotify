@@ -117,7 +117,7 @@ const ListAlbum = () => {
                       <button
                         onClick={() => removeAlbum(album._id)}
                         title="Delete Album"
-                        className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700 transition-colors duration-200 group">
+                        className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700 transition-colors duration-200 group cursor-pointer">
                         <Trash2 className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" />
                       </button>
                     </div>

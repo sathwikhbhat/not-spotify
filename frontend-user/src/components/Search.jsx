@@ -15,11 +15,12 @@ const Search = () => {
     const highlight = (text = "", q = "") => {
         if (!q) return text;
         try {
-            const esc = q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-            const re = new RegExp(`(${esc})`, "ig");
-            return text.replace(re, '<span class="bg-yellow-400/30 text-yellow-200 rounded px-0.5">$1</span>');
+            const escQ = q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+            const re = new RegExp(`(${escQ})`, "ig");
+            const safeText = String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            return safeText.replace(re, '<span class="bg-yellow-400/30 text-yellow-200 rounded px-0.5">$1</span>');
         } catch (_) {
-            return text;
+            return String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         }
     };
 

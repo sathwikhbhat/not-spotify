@@ -24,7 +24,7 @@ const ProtectedRoute = ({ children, requireAdmin = false }) => {
       <div className="min-h-screen bg-gradient-to-br from-green-900 via-black to-green-900 flex items-center justify-center">
         <div className="text-center">
           <div className="text-2xl font-bold text-white mb-4">Access Denied</div>
-          <p className="text-white text-lg">You need admin privilage to access this page.</p>
+          <p className="text-white text-lg">You need admin privilege to access this page.</p>
         </div>
       </div>
     )

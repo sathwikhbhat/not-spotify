@@ -18,7 +18,7 @@ const AddAlbum = () => {
       const formData = new FormData();
       const request = {
         name,
-        desc,
+        description: desc,
         bgColor: colour
       }
       formData.append("request", JSON.stringify(request));
@@ -30,6 +30,7 @@ const AddAlbum = () => {
         setName("");
         setDesc("");
         setImage(false);
+        setColour("");
       } else {
         toast.error('Something went wrong while adding album. Please try again');
       }

@@ -23,9 +23,11 @@ const ListAlbum = () => {
   const removeAlbum = async (id) => {
     try {
       const response = await albumsAPI.remove(id);
-      if (response.status === 204) {
+      if (response.status >= 200 && response.status < 300) {
         toast.success('Album deleted');
         await fetchAlbums();
+      } else {
+        toast.error('Failed to delete the album');
       }
     } catch (error) {
       toast.error('Failed to delete the album');
@@ -96,19 +98,19 @@ const ListAlbum = () => {
                     {/*Album description*/}
                     <div className="col-span-3">
                       <p className="text-gray-600 truncate">
-                        {album.desc || "No description"}
+                        {album.description || "No description"}
                       </p>
                     </div>
                     {/*Album color*/}
                     <div className="col-span-2">
                       <div className="flex items-center gap-2">
                         <div
-                          style={{ backgroundColor: album.bgColour }}
-                          title={`Theme color: ${album.bgColour}`}
+                          style={{ backgroundColor: album.bgColor || album.bgColour }}
+                          title={`Theme color: ${album.bgColor || album.bgColour}`}
                           className="w-6 h-6 rounded-full border-2 border-gray-300 shadow-sm">
                         </div>
                         <span className="text-xs text-gray-500 font-mono">
-                          {album.bgColour}
+                          {album.bgColor || album.bgColour}
                         </span>
                       </div>
                     </div>

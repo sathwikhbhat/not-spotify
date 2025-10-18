@@ -11,9 +11,9 @@ const DisplayHome = () => {
                 <h1 className="my-5 font-bold text-2xl">Featured Charts</h1>
                 <div className="flex overflow-auto">
                     {/* Display the albums data*/}
-                    {albumsData.map((item, index) => (
+                    {albumsData.map((item) => (
                         <AlbumItem
-                            key={index}
+                            key={item._id || item.name}
                             name={item.name}
                             description={item.description}
                             id={item._id}
@@ -26,9 +26,9 @@ const DisplayHome = () => {
                 <h1 className="my-5 font-bold text-2xl">Today's biggest hits</h1>
                 <div className="flex overflow-auto">
                     {/* Display the songs data*/}
-                    {songsData.map((item, index) => (
+                    {songsData.map((item) => (
                         <SongItem
-                            key={index}
+                            key={item._id || item.name}
                             name={item.name}
                             desc={item.description}
                             id={item._id}

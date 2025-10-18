@@ -54,7 +54,7 @@ export const Player = () => {
                     />
                 </div>
                 <div className="flex items-center gap-5">
-                    <p>{time?.currentTime ? `${time.currentTime.minute}:${time.currentTime.second}` : "0:00"}</p>
+                    <p>{time?.currentTime ? `${time.currentTime.minute}:${String(time.currentTime.second).padStart(2, '0')}` : "0:00"}</p>
                     <div ref={seekBg} onClick={seekSong} className="w-[60vw] max-w-[500px] bg-gray-300 rounded-full cursor-pointer">
                         <hr
                             ref={seekBar}

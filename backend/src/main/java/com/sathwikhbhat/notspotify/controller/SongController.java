@@ -1,9 +1,5 @@
 package com.sathwikhbhat.notspotify.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sathwikhbhat.notspotify.dto.SongRequest;
-import com.sathwikhbhat.notspotify.service.SongService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +11,12 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sathwikhbhat.notspotify.dto.SongRequest;
+import com.sathwikhbhat.notspotify.service.SongService;
+
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/songs")
@@ -24,14 +26,14 @@ public class SongController {
 
     @PostMapping
     public ResponseEntity<?> addSong(@RequestPart("request") String request,
-                                     @RequestPart("image") MultipartFile imageFile,
-                                     @RequestPart("audio") MultipartFile audioFile) {
+            @RequestPart("image") MultipartFile imageFile,
+            @RequestPart("audio") MultipartFile audioFile) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             SongRequest songRequest = objectMapper.readValue(request, SongRequest.class);
             songRequest.setAudioFile(audioFile);
             songRequest.setImageFile(imageFile);
-            return new ResponseEntity<>(songService.addSong(songRequest), HttpStatus.OK);
+            return new ResponseEntity<>(songService.addSong(songRequest), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

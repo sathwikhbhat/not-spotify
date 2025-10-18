@@ -25,7 +25,7 @@ const Login = () => {
   if (authLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
-        div.animate-spin.rounded-full.h-12.w-12.border-b-2.border-white
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white" />
       </div>
     )
   }
@@ -68,7 +68,7 @@ const Login = () => {
           <p className="text-gray-300">Sign in to manage your music library</p>
         </div>
         {/* Login form */}
-        <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-2xl border border-white/20">
+        <div className="bg-gray-900/80 backdrop-blur-lg rounded-2xl p-8 shadow-2xl border border-gray-700">
           <form className="space-y-6" onSubmit={handleSubmit}>
             {/*Email field*/}
             <div>
@@ -86,6 +86,7 @@ const Login = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   autoComplete="email"
+                  placeholder="Enter your admin email"
                   required
                   className="block w-full pl-10 pr-3 py-3 border border-gray-600 rounded-lg bg-gray-800/50 text-white placeholder-gray-400 
                             focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent 
@@ -106,7 +107,8 @@ const Login = () => {
                   id="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  autoComplete="password"
+                  autoComplete="current-password"
+                  placeholder="Enter your password"
                   required
                   className="block w-full pl-10 pr-3 py-3 border border-gray-600 rounded-lg bg-gray-800/50 text-white placeholder-gray-400 
                             focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent 

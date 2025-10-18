@@ -35,18 +35,16 @@ export const SearchProvider = ({ children }) => {
             .filter(Boolean)
             .filter(song => {
                 const name = toLower(song?.name);
-                const desc = toLower(song?.desc);
-                const description = toLower(song?.description);
-                return name.includes(query) || desc.includes(query) || description.includes(query);
+                const description = toLower(song?.description ?? song?.desc);
+                return name.includes(query) || description.includes(query);
             });
 
         const filteredAlbums = albumsData
             .filter(Boolean)
             .filter(album => {
                 const name = toLower(album?.name);
-                const desc = toLower(album?.desc);
-                const description = toLower(album?.description);
-                return name.includes(query) || desc.includes(query) || description.includes(query);
+                const description = toLower(album?.description ?? album?.desc);
+                return name.includes(query) || description.includes(query);
             });
 
         setSearchResults({

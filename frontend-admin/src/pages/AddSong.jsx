@@ -20,14 +20,14 @@ const AddSong = () => {
       const formData = new FormData();
       const request = {
         name,
-        desc,
+        description: desc,
         album
       }
       formData.append("request", JSON.stringify(request));
       formData.append("audio", song);
       formData.append("image", image);
       const response = await songsAPI.add(formData);
-      if (response.status === 201) {
+      if (response.status >= 200 && response.status < 300) {
         toast.success("Song added!");
         setName("")
         setDesc("");
@@ -131,7 +131,7 @@ const AddSong = () => {
           <div className="flex flex-col gap-2.5">
             <p>Album</p>
             <select
-              defaultValue={album}
+              value={album}
               onChange={(e) => setAlbum(e.target.value)}
               className="bg-transparent outline-green-600 border-2 border-gray-400 p-2.5 w-[150px]">
               <option value="none">None</option>
